@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alaamashkouk.tweets_emoji_example">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="tweets_emoji_example"
+        android:label="tweets"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
