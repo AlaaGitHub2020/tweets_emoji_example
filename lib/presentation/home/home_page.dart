@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tweets_emoji_example/injection.dart';
+import 'package:tweets_emoji_example/presentation/home/widgets/home_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,21 +12,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tweets Emoji'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'add new tweet',
-        child: const Icon(Icons.add),
-      ),
+    return FutureBuilder(
+      future: getIt.allReady(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return const HomeBody();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }

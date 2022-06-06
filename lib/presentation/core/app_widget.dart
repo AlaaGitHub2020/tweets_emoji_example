@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tweets_emoji_example/application/tweets/tweet_form/tweet_form_bloc.dart';
+import 'package:tweets_emoji_example/application/tweets/tweet_watcher/tweet_watcher_bloc.dart';
+import 'package:tweets_emoji_example/domain/utils/app_theme.dart';
 import 'package:tweets_emoji_example/generated/l10n.dart';
+import 'package:tweets_emoji_example/injection.dart';
 import 'package:tweets_emoji_example/presentation/routes/router.gr.dart';
 
 class AppWidget extends StatelessWidget {
@@ -9,7 +14,15 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TweetsEmoji();
+    return MultiBlocProvider(providers: [
+      BlocProvider<TweetWatcherBloc>(
+        create: (context) => getIt<TweetWatcherBloc>()
+          ..add(const TweetWatcherEvent.watchAllStarted()),
+      ),
+      BlocProvider<TweetFormBloc>(
+        create: (context) => getIt<TweetFormBloc>(),
+      ),
+    ], child: const TweetsEmoji());
   }
 }
 
@@ -33,23 +46,13 @@ class _TweetsEmojiState extends State<TweetsEmoji> {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: 'Tweets Emoji',
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blue,
-    //   ),
-    //   home: const HomePage(title: 'Tweets Emoji'),
-    // );
     return Sizer(builder: (context, orientation, screenType) {
       return MaterialApp.router(
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
-        // locale: kReleaseMode ? _locale : DevicePreview.locale(context),
         locale: _locale,
-        // title: Strings.appTitle,
         title: 'Tweets Emoji',
-        // theme: context.watch<ThemeCubit>().state.theme,
+        theme: AppTheme.light(),
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
         supportedLocales: S.delegate.supportedLocales,

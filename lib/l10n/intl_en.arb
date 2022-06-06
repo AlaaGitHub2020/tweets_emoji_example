@@ -1,3 +1,24 @@
 {
-  "@@locale": "en"
+  "@@locale": "en",
+  "tweetsEmoji": "Tweets Emoji",
+  "genericError": "Error Happened",
+  "unexpected": "Unexpected Error Happened",
+  "platFormServerFailure": "PlatForm Server Failure",
+  "unableToUpdate": "unable To Update",
+  "editTweet": "Edit Tweet",
+  "createANewTweet": "Create A New Tweet",
+  "saving": "Saving",
+  "canNotBbeEmpty": "can't be empty",
+  "exceedingLengthMax": "exceeding length, max:",
+  "typeANewTweet": "Type a new Tweet",
+  "addAnEmoji": "Add An Emoji",
+  "removeTheEmoji": "Remove The Emoji",
+  "tryWithFirebase": "Try with firebase",
+  "tryWithSQLLite": "Try with SQL lite",
+  "tweetsEmojiWithFirebase": "Tweets Emoji With Firebase",
+  "tweetsEmojiWithSQLLite": "Tweets Emoji With SQL Lite",
+  "addNewTweet": "add new tweet",
+  "weHaveAnError": "We Have an Error",
+  "theSizeOfDatabase": "The Size of database is :",
+  "noRecent": "No Recent"
 }

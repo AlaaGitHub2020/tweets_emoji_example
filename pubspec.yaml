@@ -21,14 +21,30 @@ dependencies:
   logger: ^1.1.0
   flutter_native_splash: ^2.2.2
   auto_route: ^4.0.1
+  flutter_bloc: ^8.0.1
+  freezed_annotation: ^2.0.3
+  json_annotation: ^4.5.0
+  dartz: ^0.10.1
+  kt_dart: ^0.10.0
+  uuid: ^3.0.6
+  flutter_hooks: ^0.18.4
+  injectable: ^1.5.3
+  get_it: ^7.2.0
+  firebase_core: ^1.17.0
+  cloud_firestore: ^3.1.15
+  emojis: ^0.9.9
+  emoji_picker_flutter: ^1.2.1
+  rxdart: ^0.27.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.0
   auto_route_generator: ^4.0.0
   build_runner: ^2.1.11
-
-  flutter_lints: ^2.0.0
+  freezed: ^2.0.3+1
+  injectable_generator: ^1.5.3
+  json_serializable: ^6.2.0
 
 flutter:
   uses-material-design: true
