@@ -2,6 +2,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:tweets_emoji_example/application/tweets/sql_tweet_watcher/sql_tweet_watcher_cubit.dart';
 import 'package:tweets_emoji_example/application/tweets/tweet_actor/tweet_actor_bloc.dart';
 import 'package:tweets_emoji_example/application/tweets/tweet_watcher/tweet_watcher_bloc.dart';
 import 'package:tweets_emoji_example/domain/tweet/tweet.dart';
@@ -12,10 +13,12 @@ import 'package:tweets_emoji_example/presentation/core/emoji_config_widget.dart'
 
 class TweetWithEmoji extends HookWidget {
   final Tweet? tweet;
+  final bool fromSQL;
 
   const TweetWithEmoji({
     Key? key,
     this.tweet,
+    this.fromSQL = false,
   }) : super(key: key);
 
   @override
@@ -29,11 +32,19 @@ class TweetWithEmoji extends HookWidget {
       theEmoji.value = emoji.emoji;
       showEmoji.value = !showEmoji.value;
       if (tweet != null) {
-        context
-            .read<TweetActorBloc>()
-            .add(TweetActorEvent.update(tweet!.copyWith(
-              tweetEmoji: TweetEmoji(theEmoji.value),
-            )));
+        if (fromSQL) {
+          context
+              .read<TweetActorBloc>()
+              .add(TweetActorEvent.updateFromSQL(tweet!.copyWith(
+                tweetEmoji: TweetEmoji(theEmoji.value),
+              )));
+        } else {
+          context
+              .read<TweetActorBloc>()
+              .add(TweetActorEvent.update(tweet!.copyWith(
+                tweetEmoji: TweetEmoji(theEmoji.value),
+              )));
+        }
       }
     }
 
@@ -46,12 +57,19 @@ class TweetWithEmoji extends HookWidget {
             final log = getLogger();
             log.i("Delete tweet Started");
             if (tweet != null) {
-              context
-                  .read<TweetActorBloc>()
-                  .add(TweetActorEvent.deleted(tweet!));
-              context
-                  .read<TweetWatcherBloc>()
-                  .add(const TweetWatcherEvent.watchAllStarted());
+              if (fromSQL) {
+                context
+                    .read<TweetActorBloc>()
+                    .add(TweetActorEvent.deletedFromSQL(tweet!));
+                context.read<SqlTweetWatcherCubit>().updatingSQL();
+              } else {
+                context
+                    .read<TweetActorBloc>()
+                    .add(TweetActorEvent.deleted(tweet!));
+                context
+                    .read<TweetWatcherBloc>()
+                    .add(const TweetWatcherEvent.watchAllStarted());
+              }
             }
           },
           child: Stack(

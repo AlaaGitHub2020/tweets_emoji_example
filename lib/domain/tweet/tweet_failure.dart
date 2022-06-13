@@ -8,5 +8,8 @@ abstract class TweetFailure with _$TweetFailure {
 
   const factory TweetFailure.platFormServerFailure() = _PlatFormServerFailure;
 
+  const factory TweetFailure.platFormSQLDataBaseFailure() =
+      _PlatFormSQLDataBaseFailure;
+
   const factory TweetFailure.unableToUpdate() = _UnableToUpdate;
 }

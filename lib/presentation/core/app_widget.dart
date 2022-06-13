@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:tweets_emoji_example/application/tweets/tweet_form/tweet_form_bloc.dart';
 import 'package:tweets_emoji_example/application/tweets/tweet_watcher/tweet_watcher_bloc.dart';
 import 'package:tweets_emoji_example/domain/utils/app_theme.dart';
+import 'package:tweets_emoji_example/domain/utils/strings.dart';
 import 'package:tweets_emoji_example/generated/l10n.dart';
 import 'package:tweets_emoji_example/injection.dart';
 import 'package:tweets_emoji_example/presentation/routes/router.gr.dart';
@@ -51,7 +52,7 @@ class _TweetsEmojiState extends State<TweetsEmoji> {
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
         locale: _locale,
-        title: 'Tweets Emoji',
+        title: Strings.appTitle,
         theme: AppTheme.light(),
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),

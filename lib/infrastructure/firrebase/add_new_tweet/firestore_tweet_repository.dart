@@ -12,12 +12,12 @@ import 'package:tweets_emoji_example/infrastructure/firrebase/add_new_tweet/twee
 import 'package:tweets_emoji_example/infrastructure/firrebase/core/firestore_helpers.dart';
 
 @LazySingleton(as: ITweetRepository)
-class TweetRepository implements ITweetRepository {
+class FirestoreTweetRepository implements ITweetRepository {
   final FirebaseFirestore _firebaseFirestore;
 
   final log = getLogger();
 
-  TweetRepository(this._firebaseFirestore);
+  FirestoreTweetRepository(this._firebaseFirestore);
 
   @override
   Stream<Either<TweetFailure, KtList<Tweet>>> watchAll() async* {

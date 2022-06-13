@@ -4,6 +4,7 @@
   "genericError": "Error Happened",
   "unexpected": "Unexpected Error Happened",
   "platFormServerFailure": "PlatForm Server Failure",
+  "platFormSQLDataBaseFailure": "PlatForm SQL Database Failure",
   "unableToUpdate": "unable To Update",
   "editTweet": "Edit Tweet",
   "createANewTweet": "Create A New Tweet",
@@ -20,5 +21,7 @@
   "addNewTweet": "add new tweet",
   "weHaveAnError": "We Have an Error",
   "theSizeOfDatabase": "The Size of database is :",
-  "noRecent": "No Recent"
+  "noRecent": "No Recent",
+  "noDataInTheDB": "No data in the DB",
+  "loading": "Loading..."
 }

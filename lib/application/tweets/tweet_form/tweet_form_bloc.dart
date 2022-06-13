@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tweets_emoji_example/domain/tweet/i_sql_tweet_repository.dart';
 import 'package:tweets_emoji_example/domain/tweet/i_tweet_repository.dart';
 import 'package:tweets_emoji_example/domain/tweet/tweet.dart';
 import 'package:tweets_emoji_example/domain/tweet/tweet_failure.dart';
@@ -16,9 +17,11 @@ part 'tweet_form_state.dart';
 @injectable
 class TweetFormBloc extends Bloc<TweetFormEvent, TweetFormState> {
   final ITweetRepository _tweetRepository;
+  final ISQLTweetRepository _sQLTweetRepository;
   final log = getLogger();
 
-  TweetFormBloc(this._tweetRepository) : super(TweetFormState.initial()) {
+  TweetFormBloc(this._tweetRepository, this._sQLTweetRepository)
+      : super(TweetFormState.initial()) {
     on<TweetFormEvent>(
       (event, emit) async {
         await event.map(
@@ -68,6 +71,17 @@ class TweetFormBloc extends Bloc<TweetFormEvent, TweetFormState> {
                   )
                 : await _performActionOnTweetRepository(
                     forwardedCall: _tweetRepository.create(state.tweet),
+                  );
+            emit(tweetFormState);
+          },
+          savedWithSQL: (e) async {
+            log.i("savedWithSQL started");
+            TweetFormState tweetFormState = state.isEditing
+                ? await _performActionOnTweetRepository(
+                    forwardedCall: _sQLTweetRepository.update(state.tweet),
+                  )
+                : await _performActionOnTweetRepository(
+                    forwardedCall: _sQLTweetRepository.create(state.tweet),
                   );
             emit(tweetFormState);
           },

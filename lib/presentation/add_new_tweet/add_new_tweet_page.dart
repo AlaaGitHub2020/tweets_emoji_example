@@ -13,8 +13,10 @@ import 'package:tweets_emoji_example/presentation/routes/router.gr.dart';
 
 class AddNewTweetPage extends StatelessWidget {
   final Tweet? editedTweet;
+  final bool fromSQL;
 
-  const AddNewTweetPage({Key? key, this.editedTweet}) : super(key: key);
+  const AddNewTweetPage({Key? key, this.editedTweet, required this.fromSQL})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +35,15 @@ class AddNewTweetPage extends StatelessWidget {
             () => null,
             (either) => either.fold(
               (failure) => SnackBars.showError(
-                  context,
-                  failure.map(
+                context,
+                failure.map(
                     unexpected: (_) => S.of(context).unexpected,
                     platFormServerFailure: (_) =>
                         S.of(context).platFormServerFailure,
                     unableToUpdate: (_) => S.of(context).unableToUpdate,
-                  )),
+                    platFormSQLDataBaseFailure: (_) =>
+                        S.of(context).platFormSQLDataBaseFailure),
+              ),
               (_) {
                 context.router
                     .popUntil((route) => route.settings.name == HomeRoute.name);
@@ -52,7 +56,7 @@ class AddNewTweetPage extends StatelessWidget {
         builder: (context, state) {
           return Stack(
             children: [
-              const ThePage(),
+              ThePage(fromSQL: fromSQL),
               SavingInProgressOverlay(isSaving: state.isSaving),
             ],
           );
@@ -63,7 +67,9 @@ class AddNewTweetPage extends StatelessWidget {
 }
 
 class ThePage extends StatelessWidget {
-  const ThePage({Key? key}) : super(key: key);
+  final bool fromSQL;
+
+  const ThePage({Key? key, required this.fromSQL}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +90,13 @@ class ThePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              context.read<TweetFormBloc>().add(const TweetFormEvent.saved());
+              if (fromSQL) {
+                context
+                    .read<TweetFormBloc>()
+                    .add(const TweetFormEvent.savedWithSQL());
+              } else {
+                context.read<TweetFormBloc>().add(const TweetFormEvent.saved());
+              }
             },
           ),
         ],

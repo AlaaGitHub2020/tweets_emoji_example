@@ -41,11 +41,12 @@ class FirebaseVersionPage extends HookWidget {
                     SnackBars.showError(
                       context,
                       state.tweetFailure.map(
-                        unexpected: (_) => S.of(context).unexpected,
-                        platFormServerFailure: (_) =>
-                            S.of(context).platFormServerFailure,
-                        unableToUpdate: (_) => S.of(context).unableToUpdate,
-                      ),
+                          unexpected: (_) => S.of(context).unexpected,
+                          platFormServerFailure: (_) =>
+                              S.of(context).platFormServerFailure,
+                          unableToUpdate: (_) => S.of(context).unableToUpdate,
+                          platFormSQLDataBaseFailure: (_) =>
+                              S.of(context).platFormSQLDataBaseFailure),
                     );
                   },
                 );
@@ -57,7 +58,8 @@ class FirebaseVersionPage extends HookWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.router.push(AddNewTweetRoute(editedTweet: Tweet.empty()));
+          context.router.push(
+              AddNewTweetRoute(editedTweet: Tweet.empty(), fromSQL: false));
         },
         tooltip: S.of(context).addNewTweet,
         child: const Icon(Icons.add),

@@ -7,6 +7,7 @@ abstract class TweetFormEvent with _$TweetFormEvent {
 
   const factory TweetFormEvent.tweetBodyChanged(String tweetBodyStr) =
       _TweetBodyChanged;
+
   const factory TweetFormEvent.tweetEmojiChanged(String tweetEmojiStr) =
       _TweetEmojiChanged;
 
@@ -14,4 +15,6 @@ abstract class TweetFormEvent with _$TweetFormEvent {
       _HasEmojiChanged;
 
   const factory TweetFormEvent.saved() = _Saved;
+
+  const factory TweetFormEvent.savedWithSQL() = _SavedWithSQL;
 }

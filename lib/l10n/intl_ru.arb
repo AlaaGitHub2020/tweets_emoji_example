@@ -4,6 +4,7 @@
   "genericError": "Произошла ошибка",
   "unexpected": "Произошла непредвиденная ошибка",
   "platFormServerFailure": "Сбой сервера платформы",
+  "platFormSQLDataBaseFailure": "Сбой базы данных платформы SQL",
   "unableToUpdate": "невозможно обновить",
   "editTweet": "Редактировать твит",
   "createANewTweet": "Создать новый твит",
@@ -20,5 +21,7 @@
   "addNewTweet": "добавить новый твит",
   "weHaveAnError": "У нас есть ошибка",
   "theSizeOfDatabase": "Размер базы данных:",
-  "noRecent": "Нет недавних"
+  "noRecent": "Нет недавних",
+  "noDataInTheDB": "Нет данных в БД",
+  "loading": "Загрузка..."
 }
